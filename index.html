@@ -1,19 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <title>Pokemon Teams</title>
+    <title>Rebel Fitness Bootcamp</title>
     <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
+</head>
+
+<body>
     <header>
-      <h2>Pokemon Teams!</h2>
+        <h2>Rebel Fitness Bootcamp</h2>
     </header>
 
     <main>
-      <!-- Add our Pokemon -->
+        <div id="fit-header">
+            <div class="card">
+                <h2>Exercises</h2>
+                <ul class="exlist">
+
+                </ul>
+                <p>Choose</p>
+                <button class="my-btn">Choose</button>
+            </div>
+            <div class="card">
+                <h2>Work Outs</h2>
+                <ul class="wolist">
+
+                </ul>
+                <p>Choose</p>
+                <button class="my-btn">Choose</button>
+            </div>
+            <div class="card">
+                <form class="add-wo-form">
+                    <h3>Create a Workout!</h3>
+
+                    <input type="text" name="name" value="" placeholder="Enter name of Workout" class="input-text" id="input1" /><br />
+
+                    <input type="text" name="focus" value="" placeholder="Enter Focus of Workout" class="input-text" id="input1" /> <br />
+                    <input type="number" name="work_time" value="" placeholder="Enter Interval Time" class="input-text" id="input1" /><br />
+                    <input type="number" name="rest_time" value="" placeholder="Enter Rest Time" class="input-text" id="input1" /> <br />
+                    <input type="number" name="rounds" value="" placeholder="Enter Number of Rounds" class="input-text" id="input1" /> <br />
+                    <div id="list1" class="dropdown-check-list" tabindex="100">
+                        <span class="anchor">Select Exercises</span>
+                        <ul class="items">
+                            <!-- <li><input type="checkbox" />Apple </li>
+                            <li><input type="checkbox" />Orange</li>
+                            <li><input type="checkbox" />Grapes </li>
+                            <li><input type="checkbox" />Berry </li>
+                            <li><input type="checkbox" />Mango </li>
+                            <li><input type="checkbox" />Banana </li>
+                            <li><input type="checkbox" />Tomato</li> -->
+                        </ul>
+                    </div>
+
+                    <br>
+                    <label for="exercise">Choose an exercise:</label>
+                    <select name="exercise" id="exercises">
+                      <!-- <option value="volvo">Volvo</option>
+                      <option value="saab">Saab</option>
+                      <option value="mercedes">Mercedes</option>
+                      <option value="audi">Audi</option> -->
+                    </select><br />
+                    <input type="submit" name="submit" value="Create Workout" class="submit" />
+                </form>
+            </div>
+            <!-- <div class="card">
+                <h2>Pick a Work Out</h2>
+                <img src="images/Mob_Psycho.jpg " alt="rebel-fit " />
+                <p>Choose</p>
+                <button class="my-btn">Choose</button>
+            </div>
+            <div class="card">
+                <h2>Start</h2>
+                <img src="images/tokyoGhoul.jpg " alt="rebel-fit " />
+                <p>Start</p>
+                <button class="my-btn">Start </button>
+            </div> -->
+
+        </div>
     </main>
 
-    <script src="./src/index.js"></script>
-  </body>
+    <script src="./src/script.js "></script>
+</body>
+
 </html>
