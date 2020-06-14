@@ -69,9 +69,19 @@ function fetchWorkouts() {
 function eachWorkout(wo) {
     let ul = document.querySelector(".wolist");
     let li = document.createElement("li");
+    let ul2 = document.createElement("ul");
+    let div = document.createElement("div");
     let button = document.createElement("button");
+    li.className = "workout";
+    div.className = "pop"
+    div.append(ul2);
+    wo.exercises.forEach(function(ex) {
+        let li2 = document.createElement("li");
+        li2.innerText = ex.name;
+        ul2.append(li2);
+    })
     button.innerText = wo.name;
-    li.append(button);
+    li.append(button, div);
     ul.append(li);
 }
 
