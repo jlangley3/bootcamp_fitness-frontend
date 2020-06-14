@@ -1,13 +1,48 @@
 body {
+    font-family: 'Oswald', 'Helvetica Neue', arial;
+    font-weight: 100;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
     margin: 0;
-    padding: 0;
-    /* font-family: monospace; */
+    color: rgba(0, 0, 0, .7);
+    background: cyan;
 }
 
 header {
-    background-color: #4caf50;
+    background-color: #b1fa07;
     margin: 0 auto;
-    height: 50px;
+    height: auto;
+    width: auto;
+}
+
+h1 {
+    font-family: 'Oswald', 'Helvetica Neue', arial;
+    font-weight: 300;
+    font-size: 4em;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, .8);
+    margin: 10px 0 -30px 0;
+}
+
+h2 {
+    letter-spacing: 2px;
+    padding: 5px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 3em;
+    margin: 0;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+h3 {
+    letter-spacing: 2px;
+    padding: 5px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 1em;
+    margin: 0;
+    font-weight: 300;
+    text-transform: uppercase;
 }
 
 header h2 {
@@ -15,15 +50,14 @@ header h2 {
     margin: 0;
 }
 
-
-/* main {
+main {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-gap: 20px;
     padding-top: 10px;
     padding-bottom: 30px;
-} */
+}
 
 .card {
     text-align: center;
@@ -33,7 +67,10 @@ header h2 {
     height: 25rem;
     display: inline-grid;
     margin: 1rem 2rem;
-    box-shadow: 3px 4px #e04b52
+    /* box-shadow: 3px 4px #e04b52; */
+    background-color: #eeeeee;
+    background: rgba(0, 0, 0, .1);
+    box-shadow: 10px 10px rgba(0, 0, 0, .3);
 }
 
 div.card {
@@ -51,6 +88,12 @@ p {
     font-family: Helvetica;
 }
 
+ul {
+    height: 15rem;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
 li {
     font-size: 1.05em;
     list-style: none;
@@ -62,6 +105,12 @@ button {
     color: #fff;
     background-color: green;
     border-radius: 10px;
+    padding: 15px 25px;
+    border: none;
+    background: rgba(0, 0, 0, .3);
+    letter-spacing: 1px;
+    font-family: 'Oswald', 'Helvetica Neue', arial;
+    text-transform: uppercase;
 }
 
 button.release {
@@ -105,18 +154,13 @@ button.release {
     justify-content: center;
 }
 
-
-/* @media only screen and (min-width: 500px) {
-    main {
-        grid-template-columns: 1fr 1fr;
-    }
+input {
+    background: whitesmoke;
+    border: 1px solid rgba(15, 3, 3, 0.8);
+    padding: 7px;
+    width: 20rem;
+    text-align: center;
 }
-
-@media only screen and (min-width: 850px) {
-    main {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
-} */
 
 
 /* #fit-header {
@@ -180,3 +224,48 @@ button.release {
 .dropdown-check-list.visible .items {
     display: block;
 }
+
+p.controls {
+    background: rgba(0, 0, 0, .1);
+    padding: 10px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+p.controls button {
+    padding: 7px;
+}
+
+.clear {
+    clear: both;
+}
+
+div#app {
+    background: rgba(0, 0, 0, .1);
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 10px rgba(0, 0, 0, .3);
+}
+
+p.large {
+    font-size: 10em;
+    font-family: 'Oswald', 'Helvetica Neue', arial;
+    color: rgba(0, 0, 0, .5);
+    margin: 20px;
+}
+
+
+/* @media only screen and (min-width: 500px) {
+    main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    main {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+} */

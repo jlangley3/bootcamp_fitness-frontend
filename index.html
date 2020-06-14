@@ -14,21 +14,12 @@
 
     <main>
         <div id="fit-header">
-            <div class="card">
-                <h2>Exercises</h2>
-                <ul class="exlist">
 
-                </ul>
-                <p>Choose</p>
-                <button class="my-btn">Choose</button>
-            </div>
             <div class="card">
                 <h2>Work Outs</h2>
                 <ul class="wolist">
 
                 </ul>
-                <p>Choose</p>
-                <button class="my-btn">Choose</button>
             </div>
             <div class="card">
                 <form class="add-wo-form">
@@ -44,12 +35,7 @@
                         <span class="anchor">Select Exercises</span>
                         <ul class="items">
                             <!-- <li><input type="checkbox" />Apple </li>
-                            <li><input type="checkbox" />Orange</li>
-                            <li><input type="checkbox" />Grapes </li>
-                            <li><input type="checkbox" />Berry </li>
-                            <li><input type="checkbox" />Mango </li>
-                            <li><input type="checkbox" />Banana </li>
-                            <li><input type="checkbox" />Tomato</li> -->
+                            -->
                         </ul>
                     </div>
 
@@ -57,20 +43,18 @@
                     <label for="exercise">Choose an exercise:</label>
                     <select name="exercise" id="exercises">
                       <!-- <option value="volvo">Volvo</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option> -->
+                       -->
                     </select><br />
                     <input type="submit" name="submit" value="Create Workout" class="submit" />
                 </form>
             </div>
-            <!-- <div class="card">
+            <!-- <div class="card" visibility="hidden">
                 <h2>Pick a Work Out</h2>
                 <img src="images/Mob_Psycho.jpg " alt="rebel-fit " />
                 <p>Choose</p>
                 <button class="my-btn">Choose</button>
             </div>
-            <div class="card">
+            <div class="card" staydisplay="hidden">
                 <h2>Start</h2>
                 <img src="images/tokyoGhoul.jpg " alt="rebel-fit " />
                 <p>Start</p>
@@ -82,5 +66,26 @@
 
     <script src="./src/script.js "></script>
 </body>
+<div id="app">
+
+    <h2>HIIT Timer</h2>
+
+    <p class="controls">
+        <input type="text" id="intervalTime" value="20" /> second intervals <input type="text" id="breakTime" value="10" /> seconds rest <button id="settings">Update</button>
+    </p>
+
+    <h1 id="status">Rest</h1>
+
+    <p class="large"><span id="sec">20</span></p>
+
+    <p>
+        <button id="start">Start</button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="pause">Pause</button>
+    </p>
+    <p>
+        <button id="reset">Reset</button>
+    </p>
+
+</div>
 
 </html>
