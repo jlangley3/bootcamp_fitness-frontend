@@ -251,7 +251,7 @@
          clear: both;
      }
      
-     div#app {
+     div#wotimer {
          /* background: rgba(0, 0, 0, .1);
          width: 40%;
          margin: 0 auto;
@@ -281,8 +281,8 @@
          display: block;
      }
      
-     @media (max-width: 767px) {
-         div#app {
+     @media (max-width: 800px) {
+         div#wotimer {
              width: 90%;
          }
          p#title {
@@ -320,6 +320,14 @@
      }
      
      input#breakTime {
+         background: none;
+         border: 1px solid rgba(255, 255, 255, .8);
+         padding: 7px;
+         width: 50px;
+         text-align: center;
+     }
+     
+     input#intervals {
          background: none;
          border: 1px solid rgba(255, 255, 255, .8);
          padding: 7px;

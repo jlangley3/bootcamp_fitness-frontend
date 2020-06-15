@@ -10,8 +10,12 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchWorkouts();
     timerTech();
     let submit = document.querySelector(".submit");
+    let wo_button = document.querySelector("#wobutton");
     submit.addEventListener("click", (event) => {
         createExercise(event)
+    });
+    wo_button.addEventListener("click", (event) => {
+        startWorkout(event)
     });
 });
 
@@ -122,8 +126,11 @@ function showWorkout(event, wo) {
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
     p.style.color = "#b1fa07";
+    p.dataset.rounds = wo.rounds;
     p1.style.color = "#b1fa07";
+    p.dataset.on = wo.work_time;;
     p2.style.color = "#b1fa07";
+    p.dataset.rest = wo.rest_time;
     p.innerText = "Rounds:" + " " + wo.rounds;
     p1.innerText = "On:" + " " + wo.work_time;
     p2.innerText = "Rest:" + " " + wo.rest_time;
@@ -133,6 +140,23 @@ function showWorkout(event, wo) {
         ol.append(li2);
     })
     h.append(p, p1, p2)
+}
+
+function startWorkout(event) {
+
+    let onTime = document.querySelector("#intervalTime");
+    let offTime = document.querySelector("#breakTime");
+    let intervals = document.querySelector("#intervals");
+    let exercises = event.target.parentNode.querySelector(".ex");
+    let plan = document.querySelector("#see");
+    let rounds = event.target.parentNode.querySelector("p");
+    let workTime = event.target.parentNode.querySelector("p");
+    let restTime = event.target.parentNode.querySelector("p");
+    plan.innerText = exercises.innerText;
+    onTime.value = workTime.dataset.on;
+    offTime.value = restTime.dataset.rest;
+    intervals.value = rounds.dataset.rounds;
+
 }
 // }
 
