@@ -182,10 +182,12 @@ function timerTech() {
 
     let intervalTime = 20;
     let breakTime = 10;
+    let rounds = 3;
 
     let settingsButton = document.getElementById("settings");
     let intervalInput = document.getElementById("intervalTime");
     let breakInput = document.getElementById("breakTime");
+    let roundsInput = document.getElementById("intervals");
 
     let startButton = document.getElementById("start");
     let pauseButton = document.getElementById("pause");
@@ -199,6 +201,8 @@ function timerTech() {
     settingsButton.onclick = function() {
         intervalTime = Math.floor(intervalInput.value * 1);
         breakTime = Math.floor(breakInput.value * 1);
+        rounds = Math.floor(breakInput.value * 1);
+        debugger;
         reset();
     }
 
