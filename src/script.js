@@ -6,7 +6,7 @@ const Both_URL = `${URL}/exercise_workouts`
 
 document.addEventListener("DOMContentLoaded", function() {
     console.log("page is loaded");
-    // fetchExercises();
+    fetchExercises();
     fetchWorkouts();
     timerTech();
     let submit = document.querySelector(".submit");
@@ -27,10 +27,6 @@ function fetchExercises() {
 
 function eachExercise(exercise) {
     let form = document.querySelector("#exercises");
-    let ul = document.querySelector(".exlist");
-    let li = document.createElement("li")
-    li.innerText = exercise.name
-    ul.append(li)
     let option = document.createElement("option");
     option.innerText = exercise.name;
     option.value = exercise.name;
@@ -44,9 +40,9 @@ function eachExercise(exercise) {
             checkList.classList.add('visible');
     }
 
-    checkList.onblur = function(evt) {
-        checkList.classList.remove('visible');
-    }
+    // checkList.onblur = function(evt) {
+    //     checkList.classList.remove('visible');
+    // }
     let ul2 = document.querySelector(".items");
     let li2 = document.createElement("li");
     li2.innerText = exercise.name
@@ -73,7 +69,7 @@ function eachWorkout(wo) {
     let div = document.createElement("div");
     let button = document.createElement("button");
     li.className = "workout";
-    div.className = "pop"
+    div.className = "pop";
     div.append(ul2);
     wo.exercises.forEach(function(ex) {
         let li2 = document.createElement("li");
@@ -81,8 +77,9 @@ function eachWorkout(wo) {
         ul2.append(li2);
     })
     button.innerText = wo.name;
-    li.append(button, div);
-    ul.append(li);
+    li.append(button);
+    ul.append(li, div);
+    button.addEventListener("click", function(event) { showWorkout(event, wo) })
 }
 
 function createExercise(event) {
@@ -94,7 +91,7 @@ function createExercise(event) {
         work_time: event.target.parentNode.work_time.value,
         rest_time: event.target.parentNode.rest_time.value,
         rounds: event.target.parentNode.rounds.value,
-        exercises: ["Push Up", "Cobra Push-Up", "Skull Crushers"],
+        exercises: [document.querySelector("#exercises").value]
     }
     let config = {
         method: "POST",
@@ -110,6 +107,32 @@ function createExercise(event) {
             alert("turn server on please");
             console.log(error.message)
         })
+    event.target.parentNode.reset()
+}
+
+function showWorkout(event, wo) {
+    let div = document.querySelector("#selected");
+    let ol = document.querySelector(".ex");
+    ol.innerHTML = "";
+    let h = document.querySelector(".wo");
+    h.innerHTML = "";
+    h.innerText = wo.name;
+
+    let p = document.createElement("p");
+    let p1 = document.createElement("p");
+    let p2 = document.createElement("p");
+    p.style.color = "#b1fa07";
+    p1.style.color = "#b1fa07";
+    p2.style.color = "#b1fa07";
+    p.innerText = "Rounds:" + " " + wo.rounds;
+    p1.innerText = "On:" + " " + wo.work_time;
+    p2.innerText = "Rest:" + " " + wo.rest_time;
+    wo.exercises.forEach(function(ex) {
+        let li2 = document.createElement("li");
+        li2.innerText = ex.name;
+        ol.append(li2);
+    })
+    h.append(p, p1, p2)
 }
 // }
 
@@ -132,6 +155,8 @@ function timerTech() {
 
     let statusHeader = document.getElementById("status");
     let secondsSpan = document.getElementById("sec");
+
+    let body = document.querySelector("body");
 
     settingsButton.onclick = function() {
         intervalTime = Math.floor(intervalInput.value * 1);
@@ -180,12 +205,12 @@ function timerTech() {
     }
 
     function changeToRest() {
-        $("body").css("background", "cyan");
+        body.style.background = "red";
         statusHeader.innerText = "Rest";
     }
 
     function changeToGo() {
-        $("body").css("background", "pink");
+        body.style.background = "#b1fa07";
         statusHeader.innerText = "Go!";
     }
 

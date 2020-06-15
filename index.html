@@ -28,10 +28,10 @@
                     <input type="text" name="name" value="" placeholder="Enter name of Workout" class="input-text" id="input1" /><br />
 
                     <input type="text" name="focus" value="" placeholder="Enter Focus of Workout" class="input-text" id="input1" /> <br />
-                    <input type="number" name="work_time" value="" placeholder="Enter Interval Time" class="input-text" id="input1" /><br />
-                    <input type="number" name="rest_time" value="" placeholder="Enter Rest Time" class="input-text" id="input1" /> <br />
-                    <input type="number" name="rounds" value="" placeholder="Enter Number of Rounds" class="input-text" id="input1" /> <br />
-                    <div id="list1" class="dropdown-check-list" tabindex="100">
+                    <input type="number" name="work_time" min="0" value="" placeholder="Enter Interval Time" class="input-text" id="input1" /><br />
+                    <input type="number" name="rest_time" min="0" value="" placeholder="Enter Rest Time" class="input-text" id="input1" /> <br />
+                    <input type="number" name="rounds" min="0" value="" placeholder="Enter Number of Rounds" class="input-text" id="input1" /> <br />
+                    <div id="list1" class="dropdown-check-list">
                         <span class="anchor">Select Exercises</span>
                         <ul class="items">
                             <!-- <li><input type="checkbox" />Apple </li>
@@ -53,39 +53,43 @@
                 <img src="images/Mob_Psycho.jpg " alt="rebel-fit " />
                 <p>Choose</p>
                 <button class="my-btn">Choose</button>
-            </div>
-            <div class="card" staydisplay="hidden">
-                <h2>Start</h2>
-                <img src="images/tokyoGhoul.jpg " alt="rebel-fit " />
-                <p>Start</p>
-                <button class="my-btn">Start </button>
             </div> -->
+            <div class="card" id="selected">
+                <h3>Selected Workout</h3>
+                <h4 class="wo"></h4>
+                <ol class="ex">
+
+                </ol>
+
+                <button class="my-btn">Start </button>
+            </div>
 
         </div>
     </main>
 
+
+    <div id="app">
+
+        <h2>Work Out Timer</h2>
+
+        <p class="controls">
+            <input type="text" id="intervalTime" value="20" /> second intervals <input type="text" id="breakTime" value="10" /> seconds rest <button id="settings">Update</button>
+        </p>
+
+        <h1 id="status">Rest</h1>
+
+        <p class="large"><span id="sec">20</span></p>
+
+        <p>
+            <button id="start">Start</button>
+            <button id="pause">Pause</button>
+        </p>
+        <p>
+            <button id="reset">Reset</button>
+        </p>
+
+    </div>
     <script src="./src/script.js "></script>
 </body>
-<div id="app">
-
-    <h2>HIIT Timer</h2>
-
-    <p class="controls">
-        <input type="text" id="intervalTime" value="20" /> second intervals <input type="text" id="breakTime" value="10" /> seconds rest <button id="settings">Update</button>
-    </p>
-
-    <h1 id="status">Rest</h1>
-
-    <p class="large"><span id="sec">20</span></p>
-
-    <p>
-        <button id="start">Start</button> &nbsp;&nbsp;&nbsp;&nbsp;
-        <button id="pause">Pause</button>
-    </p>
-    <p>
-        <button id="reset">Reset</button>
-    </p>
-
-</div>
 
 </html>
