@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let submit = document.querySelector(".submit");
     let wo_button = document.querySelector("#wobutton");
     submit.addEventListener("click", (event) => {
-        createExercise(event)
+        createWorkout(event)
     });
     wo_button.addEventListener("click", (event) => {
         startWorkout(event)
@@ -32,9 +32,9 @@ function fetchExercises() {
 function eachExercise(exercise) {
     let form = document.querySelector("#exercises");
     let option = document.createElement("option");
-    option.innerText = exercise.name;
-    option.value = exercise.name;
-    form.append(option);
+    // option.innerText = exercise.name;
+    // option.value = exercise.name;
+    // form.append(option);
 
     let checkList = document.getElementById('list1');
     checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
@@ -86,16 +86,27 @@ function eachWorkout(wo) {
     button.addEventListener("click", function(event) { showWorkout(event, wo) })
 }
 
-function createExercise(event) {
+function createWorkout(event) {
     event.preventDefault();
     console.log("U made it");
+    let newArray = [];
+    let array = document.querySelector(".items").querySelectorAll("input");
+    let g = document.querySelector(".items").querySelectorAll("input")[0].checked;
+    let c = document.querySelector(".items").querySelectorAll("input")[1].parentElement.innerText
+    for (let i = 0; i < array.length; i++) {
+
+        if (array[i].checked) {
+            newArray.push(array[i].parentElement.innerText);
+        } else { console.log(array[i].parentElement.innerText) }
+
+    }
     let options = {
         name: event.target.parentNode.name.value,
         focus: event.target.parentNode.focus.value,
         work_time: event.target.parentNode.work_time.value,
         rest_time: event.target.parentNode.rest_time.value,
         rounds: event.target.parentNode.rounds.value,
-        exercises: [document.querySelector("#exercises").value]
+        exercises: newArray
     }
     let config = {
         method: "POST",
@@ -106,7 +117,10 @@ function createExercise(event) {
     }
     fetch(Work_URL, config)
         .then(resp => resp.json())
-        .then(function(data) { eachWorkout(data) })
+        .then(function(data) {
+            eachWorkout(data);
+            console.log(data)
+        })
         .catch(function(error) {
             alert("turn server on please");
             console.log(error.message)
