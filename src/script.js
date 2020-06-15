@@ -183,8 +183,9 @@ function timerTech() {
     let intervalTime = 20;
     let breakTime = 10;
     let rounds = 3;
+    let oneRoundTime = intervalTime + breakTime;
 
-    let settingsButton = document.getElementById("settings");
+    let updateButton = document.getElementById("update");
     let intervalInput = document.getElementById("intervalTime");
     let breakInput = document.getElementById("breakTime");
     let roundsInput = document.getElementById("intervals");
@@ -198,12 +199,12 @@ function timerTech() {
 
     let body = document.querySelector("body");
 
-    settingsButton.onclick = function() {
+    updateButton.onclick = function() {
         intervalTime = Math.floor(intervalInput.value * 1);
         breakTime = Math.floor(breakInput.value * 1);
-        rounds = Math.floor(breakInput.value * 1);
-        debugger;
+        rounds = Math.floor(roundsInput.value * 1);
         reset();
+        changeToGo();
     }
 
     startButton.onclick = function() {
@@ -212,27 +213,30 @@ function timerTech() {
         interval = setInterval(countdownSeconds, 1000);
     }
 
+    function countdownSeconds() {
+        seconds -= 1;
+        secondsSpan.innerText = seconds;
+        checkForStateChange();
+    }
+
     resetButton.onclick = function() {
         reset();
+
     }
+
 
     function reset() {
         clearInterval(interval);
         seconds = intervalTime;
         secondsSpan.innerText = seconds;
-        rest = true;
-        changeToRest();
+        rest = false;
+        changeToGo();
     }
 
     pauseButton.onclick = function() {
         clearInterval(interval);
     }
 
-    function countdownSeconds() {
-        seconds -= 1;
-        secondsSpan.innerText = seconds;
-        checkForStateChange();
-    }
 
     function checkForStateChange() {
         if (seconds == 0 && rest == false) {
