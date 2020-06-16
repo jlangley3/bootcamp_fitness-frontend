@@ -193,21 +193,22 @@ function showWorkout(event, wo) {
 }
 
 function startWorkout(event) {
-
-    let onTime = document.querySelector("#intervalTime");
-    let offTime = document.querySelector("#breakTime");
-    let intervals = document.querySelector("#intervals");
-    let exercises = event.target.parentNode.querySelector(".ex");
-    let plan = document.querySelector("#see");
-    let rounds = event.target.parentNode.querySelector("p");
-    let workTime = event.target.parentNode.querySelector("p");
-    let restTime = event.target.parentNode.querySelector("p");
-    plan.innerText = exercises.innerText;
-    onTime.value = workTime.dataset.on;
-    offTime.value = restTime.dataset.rest;
-    intervals.value = rounds.dataset.rounds;
-    document.querySelector("#update").click();
-
+    debugger;
+    if (event.target.parentNode.querySelector("p") === !null) {
+        let onTime = document.querySelector("#intervalTime");
+        let offTime = document.querySelector("#breakTime");
+        let intervals = document.querySelector("#intervals");
+        let exercises = event.target.parentNode.querySelector(".ex");
+        let plan = document.querySelector("#see");
+        let rounds = event.target.parentNode.querySelector("p");
+        let workTime = event.target.parentNode.querySelector("p");
+        let restTime = event.target.parentNode.querySelector("p");
+        plan.innerText = exercises.innerText;
+        onTime.value = workTime.dataset.on;
+        offTime.value = restTime.dataset.rest;
+        intervals.value = rounds.dataset.rounds;
+        document.querySelector("#update").click();
+    }
 }
 // }
 
