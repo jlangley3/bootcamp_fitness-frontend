@@ -14,6 +14,7 @@ const loginPage = () => document.querySelector(".login");
 
 
 document.addEventListener("DOMContentLoaded", function() {
+
     console.log("page is loaded");
     wo_button = document.querySelector("#wobutton");
     let submit = document.querySelector(".submit");

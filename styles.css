@@ -394,7 +394,13 @@
          }
          
          .container input {
+             border: 1px solid rgba(15, 3, 3, 0.8);
+             padding: .5rem;
              width: 20rem;
+             text-align: center;
+             background: none;
+             border: 1px solid#b1fa07;
+             font-size: large;
          }
          
          .container button {
