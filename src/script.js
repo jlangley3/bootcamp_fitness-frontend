@@ -8,7 +8,7 @@ let workOut = false;
 // let wo_button;
 let current_user = "1"
 
-const mainDiv = () => document.querySelector("main");
+// const mainDiv = () => document.querySelector("main");
 const timerContainer = () => document.querySelector("#wotimer");
 const workOutCard = () => document.querySelector("#selected");
 const loginButton = () => document.querySelector(".login2");
@@ -250,16 +250,16 @@ function showWorkout(event, wo) {
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
 
-    exs.innerText = "Exercises:";
-    focus.innerText = wo.focus;
+    // exs.innerText = "Exercises:";
+    // focus.innerText = wo.focus;
 
     p.dataset.rounds = wo.rounds;
-    p.dataset.on = wo.work_time;;
+    p.dataset.on = wo.work_time;
     p.dataset.rest = wo.rest_time;
 
     p.innerText = wo.rounds + " " + "Rounds";
     p1.innerText = wo.work_time + " " + " Second Intervals";
-    p2.innerText = wo.rest_time + " " + "Second Rest Perods";
+    p2.innerText = wo.rest_time + " " + "Second Rest Periods";
 
     details.append(p, p1, p2, focus, exs)
     wo.exercises.forEach(function(ex) {

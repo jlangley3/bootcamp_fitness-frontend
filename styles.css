@@ -413,6 +413,7 @@
          .ex {
              height: fit-content;
              overflow-y: hidden;
+             justify-content: center;
          }
          
          .ex:hover {
@@ -428,10 +429,11 @@
              display: inline-block;
              width: 60px;
              height: 34px;
+             justify-self: center;
          }
          
          .switch input {
-             opacity: 0;
+             opacity: 100;
              width: 0;
              height: 0;
          }
@@ -446,22 +448,25 @@
              background-color: black;
              -webkit-transition: .4s;
              transition: .4s;
+             border: 1px solid #b1fa07
          }
          
          .slider:before {
              position: absolute;
              content: "";
-             height: 80%;
+             height: 76%;
              width: 50%;
              left: 2%;
              bottom: 12%;
-             background-color: #b1fa07;
+             background-color: black;
              -webkit-transition: .4s;
              transition: .4s;
+             border: 1px solid #b1fa07;
          }
          
          .slider:after {
              background-color: black;
+             border: 1px solid #b1fa07
          }
          
          input:checked+.slider {
@@ -470,7 +475,7 @@
          
          input:focus+.slider {
              box-shadow: 0 0 1px rgb(189, 190, 190);
-             border: #b1fa07;
+             border: 1px solid #b1fa07;
          }
          
          input:checked+.slider:before {
