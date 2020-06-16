@@ -5,7 +5,7 @@ const Both_URL = `${URL}/exercise_workouts`
 const Users_URL = `${URL}/users/names`
 
 let workOut = false;
-let wo_button;
+// let wo_button;
 let current_user;
 
 const mainDiv = () => document.querySelector("main");
@@ -13,12 +13,13 @@ const timerContainer = () => document.querySelector("#wotimer");
 const workOutCard = () => document.querySelector("#selected");
 const loginButton = () => document.querySelector(".login2");
 const loginPage = () => document.querySelector(".login");
+const wo_button = () => document.querySelector("#wobutton");
 
 
 document.addEventListener("DOMContentLoaded", function() {
 
     console.log("page is loaded");
-    wo_button = document.querySelector("#wobutton");
+
     let submit = document.querySelector(".submit");
     fetchExercises();
     fetchWorkouts();
@@ -31,15 +32,8 @@ document.addEventListener("DOMContentLoaded", function() {
     submit.addEventListener("click", (event) => {
         createWorkout(event)
     });
-    wo_button.addEventListener("click", (event) => {
-        startWorkout(event);
+    wo_button().addEventListener("click", (event) => {
         toggleWoDisplay();
-        if (wo_button.innerText === "START") {
-            wo_button.innerText = "QUIT?";
-        } else {
-            wo_button.innerText = "START"
-        }
-
     });
     loginButton().addEventListener("click", (event) => {
         let name = event.target.parentNode.children.user_name.value;
@@ -56,10 +50,15 @@ document.addEventListener("DOMContentLoaded", function() {
 function toggleWoDisplay() {
     workOut = !workOut
     if (workOut) {
-        timerContainer().style.display = "block"
+        timerContainer().style.display = "block";
+        startWorkout(event);
+        wo_button().innerText = "QUIT?";
+
     } else {
-        timerContainer().style.display = "none"
+        timerContainer().style.display = "none";
+        wo_button().innerText = "START"
     }
+
 }
 
 function fetchUsers(name, password) {
@@ -86,7 +85,7 @@ function fetchUsers(name, password) {
 
 function userData(user) {
     current_user = user.id
-    debugger;
+        // debugger;
 }
 // function findUser(users) {
 //     current_user = users.filter(function(user) { return user.name === "Jam" && user.password === "12345" });
@@ -208,50 +207,59 @@ function createWorkout(event) {
 function showWorkout(event, wo) {
     workOutCard().querySelector("h3").innerText = "";
     workOutCard().querySelector("h3").innerText = wo.name;
+
     let div = document.querySelector("#selected");
     let ol = document.querySelector(".ex");
-    ol.innerHTML = "";
-    let h = document.querySelector(".wo");
-    h.innerHTML = "";
-    // h.innerText = wo.name;
+    let details = document.querySelector(".details");
 
+    ol.innerHTML = "";
+    details.innerText = "";
+
+    let exs = document.createElement("p");
+    let focus = document.createElement("p");
     let p = document.createElement("p");
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
-    p.style.color = "#b1fa07";
+
+    exs.innerText = "Exercises:";
+    focus.innerText = wo.focus;
+
     p.dataset.rounds = wo.rounds;
-    p1.style.color = "#b1fa07";
     p.dataset.on = wo.work_time;;
-    p2.style.color = "#b1fa07";
     p.dataset.rest = wo.rest_time;
+
     p.innerText = wo.rounds + " " + "Rounds";
     p1.innerText = wo.work_time + " " + " Second Intervals";
     p2.innerText = wo.rest_time + " " + "Second Rest Perods";
+
+    details.append(p, p1, p2, focus, exs)
     wo.exercises.forEach(function(ex) {
         let li2 = document.createElement("li");
         li2.innerText = ex.name;
         ol.append(li2);
     })
-    h.append(p, p1, p2)
+
+    debugger;
 }
 
 function startWorkout(event) {
+    // debugger;
+    // if (event.target.parentNode.querySelector("p") === !null) {
+    let onTime = document.querySelector("#intervalTime");
+    let offTime = document.querySelector("#breakTime");
+    let intervals = document.querySelector("#intervals");
+    let exercises = event.target.parentNode.querySelector(".ex");
+    let plan = document.querySelector("#see");
+    let rounds = event.target.parentNode.querySelector("p");
+    let workTime = event.target.parentNode.querySelector("p");
+    let restTime = event.target.parentNode.querySelector("p");
+    plan.innerText = exercises.innerText;
+    onTime.value = workTime.dataset.on;
+    offTime.value = restTime.dataset.rest;
+    intervals.value = rounds.dataset.rounds;
+    document.querySelector("#update").click();
     debugger;
-    if (event.target.parentNode.querySelector("p") === !null) {
-        let onTime = document.querySelector("#intervalTime");
-        let offTime = document.querySelector("#breakTime");
-        let intervals = document.querySelector("#intervals");
-        let exercises = event.target.parentNode.querySelector(".ex");
-        let plan = document.querySelector("#see");
-        let rounds = event.target.parentNode.querySelector("p");
-        let workTime = event.target.parentNode.querySelector("p");
-        let restTime = event.target.parentNode.querySelector("p");
-        plan.innerText = exercises.innerText;
-        onTime.value = workTime.dataset.on;
-        offTime.value = restTime.dataset.rest;
-        intervals.value = rounds.dataset.rounds;
-        document.querySelector("#update").click();
-    }
+    // }
 }
 // }
 
@@ -292,15 +300,6 @@ function timerTech() {
         reset();
         changeToGo();
     }
-
-    // wo_button.onclick = function() {
-    //     intervalTime = Math.floor(intervalInput.value * 1);
-    //     breakTime = Math.floor(breakInput.value * 1);
-    //     rounds = Math.floor(roundsInput.value * 1);
-    //     oneRoundTime = intervalTime + breakTime + 1;
-    //     reset();
-    //     changeToGo();
-    // }
 
     startButton.onclick = function() {
         rest = false;

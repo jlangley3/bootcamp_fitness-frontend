@@ -90,8 +90,7 @@
          
          ul {
              height: 15rem;
-             overflow: scroll;
-             overflow-x: hidden;
+             overflow-y: hidden;
          }
          
          ul:hover {
@@ -408,4 +407,17 @@
              justify-self: center;
              justify-content: center;
              cursor: pointer;
+         }
+         
+         .ex {
+             height: fit-content;
+             overflow-y: hidden;
+         }
+         
+         .ex:hover {
+             overflow-y: scroll;
+         }
+         
+         #selected p {
+             color: #b1fa07;
          }
