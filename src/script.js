@@ -6,8 +6,11 @@ const Both_URL = `${URL}/exercise_workouts`
 let workOut = false;
 let wo_button;
 
+const mainDiv = () => document.querySelector("main");
 const timerContainer = () => document.querySelector("#wotimer");
 const workOutCard = () => document.querySelector("#selected");
+const loginButton = () => document.querySelector(".login2");
+const loginPage = () => document.querySelector(".login");
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -17,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchExercises();
     fetchWorkouts();
     timerTech();
+    // mainDiv().style.display = "none";
     timerContainer().style.display = "none";
     // workOutCard().style.display = "none";
     // let workOutCard = document.querySelector("#selected");
@@ -32,6 +36,10 @@ document.addEventListener("DOMContentLoaded", function() {
             wo_button.innerText = "START"
         }
 
+    });
+    loginButton().addEventListener("click", (event) => {
+        loginPage().style.display = "none";
+        mainDiv().style.display = "grid";
     });
 });
 
