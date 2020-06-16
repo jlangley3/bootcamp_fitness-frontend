@@ -2,9 +2,11 @@ const URL = "http://localhost:3000"
 const Ex_URL = `${URL}/exercises`
 const Work_URL = `${URL}/workouts`
 const Both_URL = `${URL}/exercise_workouts`
+const Users_URL = `${URL}/users/names`
 
 let workOut = false;
 let wo_button;
+let current_user;
 
 const mainDiv = () => document.querySelector("main");
 const timerContainer = () => document.querySelector("#wotimer");
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchExercises();
     fetchWorkouts();
     timerTech();
+
     // mainDiv().style.display = "none";
     timerContainer().style.display = "none";
     // workOutCard().style.display = "none";
@@ -39,8 +42,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     });
     loginButton().addEventListener("click", (event) => {
-        loginPage().style.display = "none";
-        mainDiv().style.display = "grid";
+        let name = event.target.parentNode.children.user_name.value;
+        let password = event.target.parentNode.children.psw.value;
+        if (name && password) {
+            fetchUsers(name, password);
+            loginPage().style.display = "none";
+            mainDiv().style.display = "grid";
+        } else { alert("You must insert a User Name and Password") }
+
     });
 });
 
@@ -52,6 +61,40 @@ function toggleWoDisplay() {
         timerContainer().style.display = "none"
     }
 }
+
+function fetchUsers(name, password) {
+    event.preventDefault();
+    console.log("You Made it");
+    let options = {
+        name: name,
+        password: password
+    };
+    fetch(Users_URL, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(options)
+        })
+        .then(resp => resp.json())
+        .then((user) => userData(user))
+        .catch(function(error) {
+            alert("turn server on please");
+            console.log(error.message)
+        })
+};
+
+function userData(user) {
+    current_user = user.id
+    debugger;
+}
+// function findUser(users) {
+//     current_user = users.filter(function(user) { return user.name === "Jam" && user.password === "12345" });
+//     let name = current_user[0].name;
+//     let password = current_user[0].password;
+//     debugger;
+// }
+
 
 function fetchExercises() {
     fetch(Ex_URL)
