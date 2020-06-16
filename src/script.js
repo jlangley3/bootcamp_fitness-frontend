@@ -6,7 +6,7 @@ const Users_URL = `${URL}/users/names`
 
 let workOut = false;
 // let wo_button;
-let current_user;
+let current_user = "1"
 
 const mainDiv = () => document.querySelector("main");
 const timerContainer = () => document.querySelector("#wotimer");
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchWorkouts();
     timerTech();
 
-    // mainDiv().style.display = "none";
+    mainDiv().style.display = "none";
     timerContainer().style.display = "none";
     // workOutCard().style.display = "none";
     // let workOutCard = document.querySelector("#selected");
@@ -44,6 +44,20 @@ document.addEventListener("DOMContentLoaded", function() {
             mainDiv().style.display = "grid";
         } else { alert("You must insert a User Name and Password") }
 
+    });
+    let toggleSwitch = document.querySelector("input[name=checkbox]")
+    toggleSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            console.log("checked")
+            clearWorkouts()
+            getUserWorkouts()
+            document.querySelector("#banner").innerText = "Your WorkOuts"
+        } else {
+            console.log("unchecked")
+            clearWorkouts()
+            fetchWorkouts();
+            document.querySelector("#banner").innerText = "All WorkOuts"
+        }
     });
 });
 
@@ -84,8 +98,20 @@ function fetchUsers(name, password) {
 };
 
 function userData(user) {
-    current_user = user.id
-        // debugger;
+    current_user = user
+
+    // debugger;
+}
+
+function getUserWorkouts() {
+    let banner = document.querySelector(".wolist");
+    if (current_user.workouts) {
+        banner.innerText = "";
+        current_user.workouts.forEach(function(workout) {
+            eachWorkout(workout);
+        })
+    } else { banner.innerText = "Create workouts to display them here" }
+
 }
 // function findUser(users) {
 //     current_user = users.filter(function(user) { return user.name === "Jam" && user.password === "12345" });
@@ -108,9 +134,6 @@ function fetchExercises() {
 function eachExercise(exercise) {
     let form = document.querySelector("#exercises");
     let option = document.createElement("option");
-    // option.innerText = exercise.name;
-    // option.value = exercise.name;
-    // form.append(option);
 
     let checkList = document.getElementById('list1');
     checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
@@ -142,6 +165,11 @@ function fetchWorkouts() {
         })
 };
 
+function clearWorkouts() {
+    let ul = document.querySelector(".wolist");
+    ul.innerHTML = ""
+}
+
 function eachWorkout(wo) {
     let ul = document.querySelector(".wolist");
     let li = document.createElement("li");
@@ -151,11 +179,14 @@ function eachWorkout(wo) {
     li.className = "workout";
     div.className = "pop";
     div.append(ul2);
-    wo.exercises.forEach(function(ex) {
-        let li2 = document.createElement("li");
-        li2.innerText = ex.name;
-        ul2.append(li2);
-    })
+    if (wo.exercises) {
+        wo.exercises.forEach(function(ex) {
+            let li2 = document.createElement("li");
+            li2.innerText = ex.name;
+            ul2.append(li2);
+        })
+    }
+
     button.innerText = wo.name;
     li.append(button);
     ul.append(li, div);
@@ -164,17 +195,15 @@ function eachWorkout(wo) {
 
 function createWorkout(event) {
     event.preventDefault();
+    debugger;
     console.log("U made it");
     let newArray = [];
     let array = document.querySelector(".items").querySelectorAll("input");
-    let g = document.querySelector(".items").querySelectorAll("input")[0].checked;
-    let c = document.querySelector(".items").querySelectorAll("input")[1].parentElement.innerText
-    for (let i = 0; i < array.length; i++) {
 
+    for (let i = 0; i < array.length; i++) {
         if (array[i].checked) {
             newArray.push(array[i].parentElement.innerText);
         } else { console.log(array[i].parentElement.innerText) }
-
     }
     let options = {
         name: event.target.parentNode.name.value,
@@ -182,7 +211,8 @@ function createWorkout(event) {
         work_time: event.target.parentNode.work_time.value,
         rest_time: event.target.parentNode.rest_time.value,
         rounds: event.target.parentNode.rounds.value,
-        exercises: newArray
+        exercises: newArray,
+        user: current_user.id
     }
     let config = {
         method: "POST",
@@ -194,8 +224,7 @@ function createWorkout(event) {
     fetch(Work_URL, config)
         .then(resp => resp.json())
         .then(function(data) {
-            eachWorkout(data);
-            console.log(data)
+            eachWorkout(data)
         })
         .catch(function(error) {
             alert("turn server on please");
