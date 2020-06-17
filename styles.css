@@ -496,3 +496,16 @@
              color: #b1fa07;
              font-weight: bold;
          }
+         
+         #deletebutton {
+             height: 10rem
+         }
+         
+         #createbutton {
+             height: 10rem
+         }
+         /* .dlwolist {
+             color: #b1fa07;
+             font-weight: bold;
+             justify-content: left;
+         } */

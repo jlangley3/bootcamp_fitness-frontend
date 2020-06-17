@@ -37,18 +37,34 @@
     </div>
     <main>
         <div id="fit-header">
-
+            <div class="card" id="choose">
+                <!-- <h3>Delete an Exercise</h3> -->
+                <button class="my-btn" id="createbutton">Create Exercises </button><br>
+                <button class="my-btn" id="deletebutton"> Delete Exercises </button><br>
+                <!-- <button class="my-btn" id="editbutton">Edit Your Exercises </button> -->
+            </div>
+            
             <div class="card">
                 <h3 id="banner">All WorkOuts</h3>
-                    <label class="switch">
+                <label class="switch">
                     <input type="checkbox" name="checkbox">
                     <span class="slider round"></span>
-                 </label>
+                </label>
                 <ul class="wolist">
 
                 </ul>
+                <!-- <ul class="mywolist">
+
+                </ul> -->
             </div>
-            <div class="card">
+            <div class="card" id="selected">
+                <h3>Quick Start Workout</h3>
+                <span class="details"></span>
+                <ol class="ex"></ol>
+
+                <button class="my-btn" id="wobutton">Start </button>
+            </div>
+            <div class="card" id="create">
                 <form class="add-wo-form">
                     <h3 id="banner">Create a Workout!</h3>
 
@@ -69,15 +85,12 @@
                     <input type="submit" name="submit" value="Create Workout" class="submit" />
                 </form>
             </div>
+            <div class="card" id="delete">
+                <h3 id="banner">Click to Delete a Work Out</h3>
+                <ul class="dlwolist">
 
-            <div class="card" id="selected">
-                <h3>Quick Start Workout</h3>
-                <span class="details"></span>
-                <ol class="ex"></ol>
-
-                <button class="my-btn" id="wobutton">Start </button>
+                </ul>
             </div>
-
     </div>
     </main>
 

@@ -3,17 +3,24 @@ const Ex_URL = `${URL}/exercises`
 const Work_URL = `${URL}/workouts`
 const Both_URL = `${URL}/exercise_workouts`
 const Users_URL = `${URL}/users/names`
+const UsersAll_URL = `${URL}/users`
 
 let workOut = false;
 // let wo_button;
 let current_user = "1"
 
-// const mainDiv = () => document.querySelector("main");
+const mainDiv = () => document.querySelector("main");
 const timerContainer = () => document.querySelector("#wotimer");
 const workOutCard = () => document.querySelector("#selected");
 const loginButton = () => document.querySelector(".login2");
 const loginPage = () => document.querySelector(".login");
 const wo_button = () => document.querySelector("#wobutton");
+const create_button = () => document.querySelector("#createbutton");
+const delete_button = () => document.querySelector("#deletebutton");
+const update_button = () => document.querySelector("#updatebutton");
+const createCard = () => document.querySelector("#create");
+const deleteCard = () => document.querySelector("#delete");
+
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -24,11 +31,18 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchExercises();
     fetchWorkouts();
     timerTech();
+    // getDlUserWorkouts()
+
 
     mainDiv().style.display = "none";
+    createCard().style.display = "none";
+    deleteCard().style.display = "none";
     timerContainer().style.display = "none";
     // workOutCard().style.display = "none";
-    // let workOutCard = document.querySelector("#selected");
+
+    create_button().addEventListener("click", function() { toggleCreate() });
+    delete_button().addEventListener("click", function() { toggleDelete() });
+    // update_button().addEventListener("click", {});
     submit.addEventListener("click", (event) => {
         createWorkout(event)
     });
@@ -42,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
             fetchUsers(name, password);
             loginPage().style.display = "none";
             mainDiv().style.display = "grid";
+
         } else { alert("You must insert a User Name and Password") }
 
     });
@@ -75,6 +90,30 @@ function toggleWoDisplay() {
 
 }
 
+function toggleCreate() {
+
+    if (createCard().style.display === "none") {
+        createCard().style.display = "grid";
+        create_button().innerText = "Close Create Card"
+    } else {
+        createCard().style.display = "none";
+        create_button().innerText = "Create Exercises"
+    }
+
+}
+
+function toggleDelete() {
+
+    if (deleteCard().style.display === "none") {
+        deleteCard().style.display = "grid";
+        delete_button().innerText = "Close Delete Card"
+    } else {
+        deleteCard().style.display = "none";
+        delete_button().innerText = "Delete Exercises"
+    }
+
+}
+
 function fetchUsers(name, password) {
     event.preventDefault();
     console.log("You Made it");
@@ -99,26 +138,26 @@ function fetchUsers(name, password) {
 
 function userData(user) {
     current_user = user
-
-    // debugger;
+    getDlUserWorkouts();
 }
 
 function getUserWorkouts() {
+    fetch(UsersAll_URL + `/${current_user.id}`)
+        .then(resp => resp.json())
+        .then(function(user) { displayUserWorkouts(user) })
+        .catch(function(error) { console.log(error.message) })
+}
+
+function displayUserWorkouts(user) {
     let banner = document.querySelector(".wolist");
-    if (current_user.workouts) {
+    if (user.workouts) {
         banner.innerText = "";
-        current_user.workouts.forEach(function(workout) {
+        user.workouts.forEach(function(workout) {
             eachWorkout(workout);
         })
     } else { banner.innerText = "Create workouts to display them here" }
-
 }
-// function findUser(users) {
-//     current_user = users.filter(function(user) { return user.name === "Jam" && user.password === "12345" });
-//     let name = current_user[0].name;
-//     let password = current_user[0].password;
-//     debugger;
-// }
+
 
 
 function fetchExercises() {
@@ -168,6 +207,7 @@ function fetchWorkouts() {
 function clearWorkouts() {
     let ul = document.querySelector(".wolist");
     ul.innerHTML = ""
+
 }
 
 function eachWorkout(wo) {
@@ -186,16 +226,89 @@ function eachWorkout(wo) {
             ul2.append(li2);
         })
     }
-
     button.innerText = wo.name;
     li.append(button);
     ul.append(li, div);
     button.addEventListener("click", function(event) { showWorkout(event, wo) })
 }
 
+// function myWorkouts(wo) {
+//     let ul = document.querySelector(".mywolist");
+//     let li = document.createElement("li");
+//     let ul2 = document.createElement("ul");
+//     let div = document.createElement("div");
+//     let button = document.createElement("button");
+//     li.className = "workout";
+//     div.className = "pop";
+//     div.append(ul2);
+//     if (wo.exercises) {
+//         wo.exercises.forEach(function(ex) {
+//             let li2 = document.createElement("li");
+//             li2.innerText = ex.name;
+//             ul2.append(li2);
+//         })
+//     }
+
+//     button.innerText = wo.name;
+//     li.append(button);
+//     ul.append(li, div);
+//     button.addEventListener("click", function(event) { showWorkout(event, wo) })
+// }
+
+function getDlUserWorkouts() {
+    let banner = document.querySelector(".dlwolist");
+    if (current_user.workouts) {
+        banner.innerText = "";
+        current_user.workouts.forEach(function(workout) {
+            eachDlWorkout(workout);
+        })
+    } else { banner.innerText = "Create workouts to display them here" }
+}
+
+function eachDlWorkout(wo) {
+    let ul = document.querySelector(".dlwolist");
+    let li = document.createElement("li");
+    let ul2 = document.createElement("ul");
+    let div = document.createElement("div");
+    let button = document.createElement("button");
+    li.className = "workout";
+    div.className = "pop";
+    div.append(ul2);
+    if (wo.exercises) {
+        wo.exercises.forEach(function(ex) {
+            let li2 = document.createElement("li");
+            li2.innerText = ex.name;
+            ul2.append(li2);
+        })
+    }
+
+    button.innerText = wo.name;
+    li.append(button);
+    ul.append(li, div);
+    button.addEventListener("click", function(event) { deleteWorkout(event, wo) })
+}
+
+function deleteWorkout(event, wo) {
+    event.preventDefault();
+    fetch(Work_URL + `/${wo.id}`, {
+            method: "DELETE"
+        }).then(resp => resp.json())
+        .then(function(message) {
+            console.log(message);
+            event.target.remove();
+            let array = current_user.workouts
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === wo) { array.splice(i, 1); }
+            }
+        })
+        .catch(function() {
+            alert("Workout was not Deleted");
+            console.log(error.message)
+        })
+}
+
 function createWorkout(event) {
     event.preventDefault();
-    debugger;
     console.log("U made it");
     let newArray = [];
     let array = document.querySelector(".items").querySelectorAll("input");
@@ -212,7 +325,7 @@ function createWorkout(event) {
         rest_time: event.target.parentNode.rest_time.value,
         rounds: event.target.parentNode.rounds.value,
         exercises: newArray,
-        user: current_user.id
+        user_id: current_user.id
     }
     let config = {
         method: "POST",
@@ -268,11 +381,10 @@ function showWorkout(event, wo) {
         ol.append(li2);
     })
 
-    debugger;
 }
 
 function startWorkout(event) {
-    // debugger;
+    debugger;
     // if (event.target.parentNode.querySelector("p") === !null) {
     let onTime = document.querySelector("#intervalTime");
     let offTime = document.querySelector("#breakTime");
@@ -287,7 +399,6 @@ function startWorkout(event) {
     offTime.value = restTime.dataset.rest;
     intervals.value = rounds.dataset.rounds;
     document.querySelector("#update").click();
-    debugger;
     // }
 }
 // }
@@ -325,7 +436,7 @@ function timerTech() {
         intervalTime = Math.floor(intervalInput.value * 1);
         breakTime = Math.floor(breakInput.value * 1);
         rounds = Math.floor(roundsInput.value * 1);
-        oneRoundTime = intervalTime + breakTime + 1;
+        oneRoundTime = intervalTime + breakTime + 2;
         reset();
         changeToGo();
     }
@@ -334,7 +445,6 @@ function timerTech() {
         rest = false;
         changeToGo();
         interval = setInterval(countdownSeconds, 1000);
-        // totalTime = (oneRoundTime * 1000) * rounds;
         totalTime = (oneRoundTime * rounds - breakTime) * 1000;
         round = setTimeout(roundTimeOut, totalTime);
         oneTime = setInterval(showRoundsLeft, (oneRoundTime * 1000));
