@@ -334,9 +334,11 @@ function timerTech() {
         rest = false;
         changeToGo();
         interval = setInterval(countdownSeconds, 1000);
-        totalTime = (oneRoundTime * 1000) * rounds;
+        // totalTime = (oneRoundTime * 1000) * rounds;
+        totalTime = (oneRoundTime * rounds - breakTime) * 1000;
         round = setTimeout(roundTimeOut, totalTime);
         oneTime = setInterval(showRoundsLeft, (oneRoundTime * 1000));
+
     }
 
     function countdownSeconds() {
@@ -346,8 +348,11 @@ function timerTech() {
     }
 
     function roundTimeOut() {
-        alert("Great Workout!");
-        reset();
+        statusHeader.innerText = "Great Workout!";
+        secondsSpan.innerText = "Done!"
+        setTimeout(function() { alert("Great Workout!"); }, 1000);
+        setTimeout(function() { reset(); }, 2000);
+
     }
 
     function showRoundsLeft() {
