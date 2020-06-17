@@ -6,7 +6,6 @@ const Users_URL = `${URL}/users/names`
 const UsersAll_URL = `${URL}/users`
 
 let workOut = false;
-// let wo_button;
 let current_user = "1"
 
 const mainDiv = () => document.querySelector("main");
@@ -24,16 +23,12 @@ const deleteCard = () => document.querySelector("#delete");
 
 
 document.addEventListener("DOMContentLoaded", function() {
-
     console.log("page is loaded");
-
     let submit = document.querySelector(".submit");
     fetchExercises();
     fetchWorkouts();
     timerTech();
     // getDlUserWorkouts()
-
-
     mainDiv().style.display = "none";
     createCard().style.display = "none";
     deleteCard().style.display = "none";
@@ -82,12 +77,10 @@ function toggleWoDisplay() {
         timerContainer().style.display = "block";
         startWorkout(event);
         wo_button().innerText = "QUIT?";
-
     } else {
         timerContainer().style.display = "none";
         wo_button().innerText = "START"
     }
-
 }
 
 function toggleCreate() {
@@ -104,6 +97,7 @@ function toggleDelete() {
     if (deleteCard().style.display === "none") {
         deleteCard().style.display = "grid";
         delete_button().innerText = "Close Delete Card"
+        getUserWorkouts()
     } else {
         deleteCard().style.display = "none";
         delete_button().innerText = "Delete Exercises"
@@ -134,13 +128,16 @@ function fetchUsers(name, password) {
 
 function userData(user) {
     current_user = user
-    getDlUserWorkouts();
+    getDlUserWorkouts(user);
 }
 
 function getUserWorkouts() {
     fetch(UsersAll_URL + `/${current_user.id}`)
         .then(resp => resp.json())
-        .then(function(user) { displayUserWorkouts(user) })
+        .then(function(user) {
+            displayUserWorkouts(user);
+            getDlUserWorkouts(user)
+        })
         .catch(function(error) { console.log(error.message) })
 }
 
@@ -153,8 +150,6 @@ function displayUserWorkouts(user) {
         })
     } else { banner.innerText = "Create workouts to display them here" }
 }
-
-
 
 function fetchExercises() {
     fetch(Ex_URL)
@@ -203,7 +198,6 @@ function fetchWorkouts() {
 function clearWorkouts() {
     let ul = document.querySelector(".wolist");
     ul.innerHTML = ""
-
 }
 
 function eachWorkout(wo) {
@@ -229,11 +223,12 @@ function eachWorkout(wo) {
 }
 
 
-function getDlUserWorkouts() {
+function getDlUserWorkouts(user) {
+    debugger;
     let banner = document.querySelector(".dlwolist");
-    if (current_user.workouts) {
+    if (user.workouts) {
         banner.innerText = "";
-        current_user.workouts.forEach(function(workout) {
+        user.workouts.forEach(function(workout) {
             eachDlWorkout(workout);
         })
     } else { banner.innerText = "Create workouts to display them here" }
