@@ -28,16 +28,16 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchExercises();
     fetchWorkouts();
     timerTech();
-    // getDlUserWorkouts()
+
     mainDiv().style.display = "none";
     createCard().style.display = "none";
     deleteCard().style.display = "none";
     timerContainer().style.display = "none";
-    // workOutCard().style.display = "none";
+
 
     create_button().addEventListener("click", function() { toggleCreate() });
     delete_button().addEventListener("click", function() { toggleDelete() });
-    // update_button().addEventListener("click", {});
+
     submit.addEventListener("click", (event) => {
         createWorkout(event)
     });
@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
     loginButton().addEventListener("click", (event) => {
         let name = event.target.parentNode.children.user_name.value;
         let password = event.target.parentNode.children.psw.value;
+        fetchWorkouts();
         if (name && password) {
             fetchUsers(name, password);
             loginPage().style.display = "none";
@@ -162,9 +163,6 @@ function fetchExercises() {
 };
 
 function eachExercise(exercise) {
-    let form = document.querySelector("#exercises");
-    let option = document.createElement("option");
-
     let checkList = document.getElementById('list1');
     checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
         if (checkList.classList.contains('visible'))
@@ -172,10 +170,6 @@ function eachExercise(exercise) {
         else
             checkList.classList.add('visible');
     }
-
-    // checkList.onblur = function(evt) {
-    //     checkList.classList.remove('visible');
-    // }
     let ul2 = document.querySelector(".items");
     let li2 = document.createElement("li");
     li2.innerText = exercise.name
@@ -224,7 +218,6 @@ function eachWorkout(wo) {
 
 
 function getDlUserWorkouts(user) {
-    debugger;
     let banner = document.querySelector(".dlwolist");
     if (user.workouts) {
         banner.innerText = "";
@@ -263,6 +256,7 @@ function deleteWorkout(event, wo) {
             method: "DELETE"
         }).then(resp => resp.json())
         .then(function(message) {
+            // delFromList(message);
             console.log(message);
             event.target.remove();
             let array = current_user.workouts
@@ -276,6 +270,12 @@ function deleteWorkout(event, wo) {
         })
 }
 
+// function delFromList(data) {
+//     debugger;
+//     document.querySelector(".wolist").children[4].innerText
+
+// }
+
 function createWorkout(event) {
     event.preventDefault();
     console.log("U made it");
@@ -285,7 +285,7 @@ function createWorkout(event) {
     for (let i = 0; i < array.length; i++) {
         if (array[i].checked) {
             newArray.push(array[i].parentElement.innerText);
-        } else { console.log(array[i].parentElement.innerText) }
+        }
     }
     let options = {
         name: event.target.parentNode.name.value,
@@ -319,21 +319,15 @@ function showWorkout(event, wo) {
     workOutCard().querySelector("h3").innerText = "";
     workOutCard().querySelector("h3").innerText = wo.name;
 
-    let div = document.querySelector("#selected");
     let ol = document.querySelector(".ex");
     let details = document.querySelector(".details");
 
     ol.innerHTML = "";
     details.innerText = "";
 
-    let exs = document.createElement("p");
-    let focus = document.createElement("p");
     let p = document.createElement("p");
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
-
-    // exs.innerText = "Exercises:";
-    // focus.innerText = wo.focus;
 
     p.dataset.rounds = wo.rounds;
     p.dataset.on = wo.work_time;
@@ -343,13 +337,12 @@ function showWorkout(event, wo) {
     p1.innerText = wo.work_time + " " + " Second Intervals";
     p2.innerText = wo.rest_time + " " + "Second Rest Periods";
 
-    details.append(p, p1, p2, focus, exs)
+    details.append(p, p1, p2)
     wo.exercises.forEach(function(ex) {
         let li2 = document.createElement("li");
         li2.innerText = ex.name;
         ol.append(li2);
     })
-
 }
 
 function startWorkout(event) {
@@ -369,7 +362,7 @@ function startWorkout(event) {
         document.querySelector("#update").click();
     }
 }
-// }
+
 
 function timerTech() {
 
@@ -434,7 +427,6 @@ function timerTech() {
     }
 
     function showRoundsLeft() {
-        // let show = document.querySelector("#intervals");
         roundsInput.value = --rounds;
     }
 

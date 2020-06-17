@@ -345,16 +345,14 @@
                  input[type=number],
                  select {
                      border: 1px solid#b1fa07;
-                     color: whitesmoke;
+                     color: black;
                      font-size: large;
+                     color: whitesmoke
                  }
                  
                  #see {
                      font-size: .7rem;
-                     /* overflow: scroll;
-         vertical-align: top; */
                      float: center
-                     /* display: flex; */
                  }
                  
                  .login {
@@ -379,9 +377,10 @@
                      padding: .5rem;
                      width: 20rem;
                      text-align: center;
-                     background: none;
+                     background-color: black;
                      border: 1px solid#b1fa07;
                      font-size: large;
+                     color: whitesmoke
                  }
                  
                  .container button {
