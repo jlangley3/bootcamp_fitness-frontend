@@ -91,7 +91,6 @@ function toggleWoDisplay() {
 }
 
 function toggleCreate() {
-
     if (createCard().style.display === "none") {
         createCard().style.display = "grid";
         create_button().innerText = "Close Create Card"
@@ -99,11 +98,9 @@ function toggleCreate() {
         createCard().style.display = "none";
         create_button().innerText = "Create Exercises"
     }
-
 }
 
 function toggleDelete() {
-
     if (deleteCard().style.display === "none") {
         deleteCard().style.display = "grid";
         delete_button().innerText = "Close Delete Card"
@@ -111,7 +108,6 @@ function toggleDelete() {
         deleteCard().style.display = "none";
         delete_button().innerText = "Delete Exercises"
     }
-
 }
 
 function fetchUsers(name, password) {
@@ -232,28 +228,6 @@ function eachWorkout(wo) {
     button.addEventListener("click", function(event) { showWorkout(event, wo) })
 }
 
-// function myWorkouts(wo) {
-//     let ul = document.querySelector(".mywolist");
-//     let li = document.createElement("li");
-//     let ul2 = document.createElement("ul");
-//     let div = document.createElement("div");
-//     let button = document.createElement("button");
-//     li.className = "workout";
-//     div.className = "pop";
-//     div.append(ul2);
-//     if (wo.exercises) {
-//         wo.exercises.forEach(function(ex) {
-//             let li2 = document.createElement("li");
-//             li2.innerText = ex.name;
-//             ul2.append(li2);
-//         })
-//     }
-
-//     button.innerText = wo.name;
-//     li.append(button);
-//     ul.append(li, div);
-//     button.addEventListener("click", function(event) { showWorkout(event, wo) })
-// }
 
 function getDlUserWorkouts() {
     let banner = document.querySelector(".dlwolist");
@@ -384,22 +358,21 @@ function showWorkout(event, wo) {
 }
 
 function startWorkout(event) {
-    debugger;
-    // if (event.target.parentNode.querySelector("p") === !null) {
-    let onTime = document.querySelector("#intervalTime");
-    let offTime = document.querySelector("#breakTime");
-    let intervals = document.querySelector("#intervals");
-    let exercises = event.target.parentNode.querySelector(".ex");
-    let plan = document.querySelector("#see");
-    let rounds = event.target.parentNode.querySelector("p");
-    let workTime = event.target.parentNode.querySelector("p");
-    let restTime = event.target.parentNode.querySelector("p");
-    plan.innerText = exercises.innerText;
-    onTime.value = workTime.dataset.on;
-    offTime.value = restTime.dataset.rest;
-    intervals.value = rounds.dataset.rounds;
-    document.querySelector("#update").click();
-    // }
+    if (event.target.parentNode.querySelector("p")) {
+        let onTime = document.querySelector("#intervalTime");
+        let offTime = document.querySelector("#breakTime");
+        let intervals = document.querySelector("#intervals");
+        let exercises = event.target.parentNode.querySelector(".ex");
+        let plan = document.querySelector("#see");
+        let rounds = event.target.parentNode.querySelector("p");
+        let workTime = event.target.parentNode.querySelector("p");
+        let restTime = event.target.parentNode.querySelector("p");
+        plan.innerText = exercises.innerText;
+        onTime.value = workTime.dataset.on;
+        offTime.value = restTime.dataset.rest;
+        intervals.value = rounds.dataset.rounds;
+        document.querySelector("#update").click();
+    }
 }
 // }
 
