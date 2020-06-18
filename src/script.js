@@ -98,7 +98,6 @@ function toggleDelete() {
     if (deleteCard().style.display === "none") {
         deleteCard().style.display = "grid";
         delete_button().innerText = "Close Delete Card"
-        getUserWorkouts()
     } else {
         deleteCard().style.display = "none";
         delete_button().innerText = "Delete Exercises"
@@ -421,13 +420,14 @@ function timerTech() {
     function roundTimeOut() {
         statusHeader.innerText = "Great Workout!";
         secondsSpan.innerText = "Done!"
-        setTimeout(function() { alert("Great Workout!"); }, 1000);
         setTimeout(function() { reset(); }, 2000);
 
     }
 
     function showRoundsLeft() {
-        roundsInput.value = --rounds;
+        if (roundsInput.value >= 0) {
+            roundsInput.value = --rounds;
+        }
     }
 
     resetButton.onclick = function() {
